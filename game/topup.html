@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Top-Up Center</title>
+    <link rel="icon" href="../logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray-900 */
+        }
+        
+        /* Tab Styles */
+        .tab-button {
+            transition: all 0.3s ease-in-out;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-button.active {
+            color: #38BDF8; /* LightBlue-400 */
+            border-bottom-color: #38BDF8;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #1F2937; /* Gray-800 */
+        }
+
+        /* Common Option Styles */
+        .option-card {
+            background-color: #1F2937; /* Gray-800 */
+            border: 2px solid #374151; /* Gray-700 */
+            transition: all 0.2s ease-in-out;
+        }
+        .option-card:hover {
+            transform: translateY(-4px);
+            border-color: #38BDF8; /* LightBlue-400 */
+        }
+
+        /* ML Diamond Specific Styles */
+        .diamond-option.selected {
+            background-color: #0E7490; /* Cyan-700 */
+            color: white;
+            border-color: #38BDF8; /* LightBlue-400 */
+        }
+        .diamond-option.selected .price {
+            color: #CFFAFE; /* Cyan-100 */
+        }
+
+        /* PUBG UC Specific Styles */
+        .uc-option.selected {
+            background-color: #10B981; /* Emerald-500 */
+            color: white;
+            border-color: #059669; /* Emerald-600 */
+        }
+        .uc-option.selected .price {
+            color: #D1FAE5; /* Emerald-100 */
+        }
+
+        /* Message Styles */
+        .error-message {
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #copy-success-message {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-gray-200 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-3xl mx-auto">
+        <!-- Tab Navigation -->
+        <div class="flex border-b border-gray-700 mb-6">
+            <button id="mlTab" class="tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-400 active">MLBB Diamond</button>
+            <button id="pubgTab" class="tab-button flex-1 py-3 px-4 text-lg font-semibold text-gray-400">PUBG UC</button>
+        </div>
+
+        <!-- Content Panes -->
+        <div id="contentPanes">
+            <!-- MLBB Top-Up Page -->
+            <div id="mlContent" class="">
+                <div class="w-full mx-auto bg-[#0d121d] rounded-2xl shadow-xl p-6 md:p-8">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl md:text-4xl font-bold text-white">Mlbb Dia - Top Up</h1>
+                    </div>
+                    <form id="mlOrderForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <label for="mlUserId" class="block mb-2 text-sm font-medium text-gray-300">အသုံးပြုသူအိုင်ဒီ (User ID)</label>
+                                <input type="text" id="mlUserId" name="userId" placeholder="သင်၏ User ID ထည့်ပါ" class="w-full px-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200" required>
+                            </div>
+                            <div>
+                                <label for="mlZoneId" class="block mb-2 text-sm font-medium text-gray-300">ဇုန်အိုင်ဒီ (Zone ID)</label>
+                                <input type="text" id="mlZoneId" name="zoneId" placeholder="သင်၏ Zone ID ထည့်ပါ" class="w-full px-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200" required>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold mb-4 text-white">1. Diamond အရေအတွက် ရွေးချယ်ပါ</h2>
+                            <div id="diamond-options-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <!-- Diamond options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <div id="ml-error-message" class="error-message mt-6 p-3 bg-red-900/50 border border-red-600 text-red-300 rounded-lg text-center">
+                            ကျေးဇူးပြု၍ Diamond package ရွေးပြီး ID အချက်အလက်များ ဖြည့်စွက်ပါ။
+                        </div>
+                        <div class="mt-8">
+                            <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                                အော်ဒါတင်မည်
+                            </button>
+                        </div>
+                    </form>
+                    <div id="mlOrderSummary" class="mt-8 p-6 bg-gray-900 rounded-xl border border-gray-700 hidden">
+                         <h2 class="text-2xl font-bold text-center text-white mb-4">🎉 အော်ဒါတင်ခြင်း အောင်မြင်ပါသည် 🎉</h2>
+                         <p class="text-center text-lg text-gray-300">သင်၏အော်ဒါအတွက် ကျေးဇူးတင်ပါသည်။ အောက်တွင် အသေးစိတ်ကို ကြည့်နိုင်ပါသည်။</p>
+                         <div class="mt-4 space-y-2 text-center">
+                             <p class="text-md text-gray-400"><strong>ရွေးချယ်ထားသော Package:</strong> <span id="mlSummaryPackage" class="font-semibold text-cyan-400"></span></p>
+                             <p class="text-md text-gray-400"><strong>User ID:</strong> <span id="mlSummaryUserId" class="font-semibold text-cyan-400"></span></p>
+                             <p class="text-md text-gray-400"><strong>Zone ID:</strong> <span id="mlSummaryZoneId" class="font-semibold text-cyan-400"></span></p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUBG UC Top-Up Page -->
+            <div id="pubgContent" class="hidden">
+                 <div class="w-full mx-auto bg-[#0d121d] rounded-2xl shadow-xl p-6 md:p-8">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl md:text-4xl font-bold text-white">UC Top-Up Center</h1>
+                        <p class="text-gray-400 mt-2">သင်ဝယ်ယူလိုသော UC များကို ရွေးချယ်ပြီး သင်၏ ID ကို ထည့်ပါ။</p>
+                    </div>
+                    <form id="pubgOrderForm">
+                        <div>
+                            <h2 class="text-xl font-semibold mb-4 text-white">1. UC ပမာဏ ရွေးချယ်ပါ</h2>
+                            <div id="uc-options-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                                <!-- UC options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h2 class="text-xl font-semibold mb-4 text-white">2. သင်၏ User ID ကို ထည့်ပါ</h2>
+                            <input type="text" id="pubgUserId" name="userId" placeholder="Enter your unique User ID" class="w-full px-4 py-3 bg-gray-800 border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition duration-200" required>
+                        </div>
+                        <div id="pubg-error-message" class="error-message mt-6 p-3 bg-red-900/50 border border-red-600 text-red-300 rounded-lg text-center">
+                            Please select a UC package and enter your User ID.
+                        </div>
+                        <div class="mt-8">
+                            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                                အော်ဒါ တင်မည်
+                            </button>
+                        </div>
+                    </form>
+                    <div id="pubgOrderSummary" class="mt-8 p-6 bg-gray-900 rounded-xl border border-gray-700 hidden">
+                         <h2 class="text-2xl font-bold text-center text-white mb-4">🎉 Order Successful! 🎉</h2>
+                         <p class="text-center text-lg text-gray-300">Thank you for your purchase. Here is a summary of your order:</p>
+                         <div class="mt-4 space-y-2 text-center">
+                             <p class="text-md text-gray-400"><strong>Selected Package:</strong> <span id="pubgSummaryUcAmount" class="font-semibold text-emerald-500"></span></p>
+                             <p class="text-md text-gray-400"><strong>User ID:</strong> <span id="pubgSummaryUserId" class="font-semibold text-emerald-500"></span></p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Clipboard Copy Success Message -->
+    <div id="copy-success-message" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded-lg shadow-lg hidden opacity-0">
+        Clipboard ထဲသို့ ကူးယူပြီးပါပြီ!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Tab Switching Logic ---
+            const mlTab = document.getElementById('mlTab');
+            const pubgTab = document.getElementById('pubgTab');
+            const mlContent = document.getElementById('mlContent');
+            const pubgContent = document.getElementById('pubgContent');
+
+            mlTab.addEventListener('click', () => {
+                mlContent.classList.remove('hidden');
+                pubgContent.classList.add('hidden');
+                mlTab.classList.add('active');
+                pubgTab.classList.remove('active');
+            });
+
+            pubgTab.addEventListener('click', () => {
+                pubgContent.classList.remove('hidden');
+                mlContent.classList.add('hidden');
+                pubgTab.classList.add('active');
+                mlTab.classList.remove('active');
+            });
+
+            // --- Common Helper Functions ---
+            function showCopySuccessMessage() {
+                const msgEl = document.getElementById('copy-success-message');
+                msgEl.classList.remove('hidden');
+                setTimeout(() => { msgEl.style.opacity = 1; }, 10);
+                setTimeout(() => {
+                    msgEl.style.opacity = 0;
+                    setTimeout(() => { msgEl.classList.add('hidden'); }, 500);
+                }, 2000);
+            }
+
+            function copyToClipboard(text) {
+                const fallbackCopy = () => {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = 0;
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        if (document.execCommand('copy')) showCopySuccessMessage();
+                    } catch (err) {
+                        console.error('Fallback: Unable to copy', err);
+                    }
+                    document.body.removeChild(textArea);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showCopySuccessMessage).catch(err => {
+                        console.error('Modern API failed, falling back.', err);
+                        fallbackCopy();
+                    });
+                } else {
+                    fallbackCopy();
+                }
+            }
+
+            // --- MLBB Form Logic ---
+            function initMlbbForm() {
+                const diamondPackages = [
+                    { name: 'Weekly Pass', price: '' },
+                    { name: 'Diamond - 86', price: '5,500 Ks' },
+                    { name: 'Diamond - 172', price: '11,000 Ks' },
+                    { name: 'Diamond - 257', price: '16,500 Ks' },
+                    { name: 'Diamond - 344', price: '22,000 Ks' },
+                    { name: 'Diamond - 430', price: '27,500 Ks' },
+                    { name: 'Diamond - 516', price: '33,000 Ks' },
+                    { name: 'Diamond - 601', price: '38,500 Ks' },
+                    { name: 'Diamond - 706', price: '44,000 Ks' },
+                    { name: 'Diamond - 792', price: '49,500 Ks' },
+                    { name: 'Diamond - 878', price: '55,000 Ks' },
+                    { name: 'Diamond - 1050', price: '66,000 Ks' },
+                ];
+                const optionsContainer = document.getElementById('diamond-options-container');
+                diamondPackages.forEach(pkg => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'diamond-option option-card cursor-pointer p-3 rounded-lg text-center';
+                    optionDiv.dataset.name = pkg.name;
+                    optionDiv.dataset.price = pkg.price;
+                    optionDiv.innerHTML = `
+                        <div class="font-semibold text-base">${pkg.name}</div>
+                        ${pkg.price ? `<div class="price text-sm text-gray-400 mt-1">${pkg.price}</div>` : ''}
+                    `;
+                    optionsContainer.appendChild(optionDiv);
+                });
+
+                const form = document.getElementById('mlOrderForm');
+                const options = optionsContainer.querySelectorAll('.diamond-option');
+                const userIdInput = document.getElementById('mlUserId');
+                const zoneIdInput = document.getElementById('mlZoneId');
+                const errorMessage = document.getElementById('ml-error-message');
+                const orderSummary = document.getElementById('mlOrderSummary');
+                let selectedOption = null;
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        selectedOption = option;
+                        errorMessage.style.display = 'none';
+                    });
+                });
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const userId = userIdInput.value.trim();
+                    const zoneId = zoneIdInput.value.trim();
+
+                    if (!selectedOption || !userId || !zoneId) {
+                        errorMessage.style.display = 'block';
+                        errorMessage.style.opacity = 1;
+                        return;
+                    }
+
+                    const packageName = selectedOption.dataset.name;
+                    const price = selectedOption.dataset.price;
+                    const fullPackageName = price ? `${packageName} (${price})` : packageName;
+
+                    const orderDetailsText = `Game: MLBB\nUser ID: ${userId}\nZone ID: ${zoneId}\nPackage: ${packageName}`;
+                    copyToClipboard(orderDetailsText);
+
+                    document.getElementById('mlSummaryPackage').textContent = fullPackageName;
+                    document.getElementById('mlSummaryUserId').textContent = userId;
+                    document.getElementById('mlSummaryZoneId').textContent = zoneId;
+                    orderSummary.classList.remove('hidden');
+                    orderSummary.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // --- PUBG UC Form Logic ---
+            function initPubgForm() {
+                const ucPackages = [
+                    { uc: 60, price: '4,600 Ks' },
+                    { uc: 325, price: '23,900 Ks' },
+                    { uc: 660, price: '46,500 Ks' },
+                    { uc: 1800, price: '115,000 Ks' },
+                    { uc: 3850, price: '235,000 Ks' }
+                ];
+                const optionsContainer = document.getElementById('uc-options-container');
+                ucPackages.forEach(pkg => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'uc-option option-card cursor-pointer p-4 rounded-lg text-center';
+                    optionDiv.dataset.uc = pkg.uc;
+                    optionDiv.dataset.price = pkg.price;
+                    optionDiv.innerHTML = `
+                        <div class="font-bold text-lg">${pkg.uc} UC</div>
+                        <div class="price text-sm text-gray-400 mt-1">${pkg.price}</div>
+                    `;
+                    optionsContainer.appendChild(optionDiv);
+                });
+
+                const form = document.getElementById('pubgOrderForm');
+                const options = optionsContainer.querySelectorAll('.uc-option');
+                const userIdInput = document.getElementById('pubgUserId');
+                const errorMessage = document.getElementById('pubg-error-message');
+                const orderSummary = document.getElementById('pubgOrderSummary');
+                let selectedOption = null;
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        selectedOption = option;
+                        errorMessage.style.display = 'none';
+                    });
+                });
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const userId = userIdInput.value.trim();
+
+                    if (!selectedOption || !userId) {
+                        errorMessage.style.display = 'block';
+                        errorMessage.style.opacity = 1;
+                        return;
+                    }
+
+                    const ucAmount = selectedOption.dataset.uc;
+                    const price = selectedOption.dataset.price;
+                    
+                    const orderDetailsText = `Game: PUBG\nUser ID: ${userId}\nPackage: ${ucAmount} UC`;
+                    copyToClipboard(orderDetailsText);
+
+                    document.getElementById('pubgSummaryUcAmount').textContent = `${ucAmount} UC (${price})`;
+                    document.getElementById('pubgSummaryUserId').textContent = userId;
+                    orderSummary.classList.remove('hidden');
+                    orderSummary.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Initialize both forms
+            initMlbbForm();
+            initPubgForm();
+        });
+    </script>
+</body>
+</html>
