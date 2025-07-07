@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link rel="icon" href="logo.png">
+
+    <!-- Google Fonts: Poppins & Montserrat for a stylish look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for the clock icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* --- CSS STYLES (New Design with More Text) --- */
+
+        /* 1. Basic Page Setup */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111; /* Dark background */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center; /* Center all text within the container */
+            padding: 20px;
+        }
+        
+        /* New container to hold all content */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px; /* Space between elements */
+        }
+
+        /* 2. Main Title Styling */
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* 3. The Main Label Container */
+        .coming-soon-label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 32px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: default;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 4. The Shine Animation Effect */
+        .coming-soon-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                110deg,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: skewX(-25deg);
+            animation: shine 4s infinite linear;
+        }
+
+        /* 5. The Icon Styling */
+        .coming-soon-label .icon {
+            font-size: 1.6rem;
+            color: #f1c40f;
+            animation: tick-tock 1.5s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        /* 6. The Text Styling */
+        .coming-soon-label .text {
+             min-width: 220px; 
+             text-align: center;
+             font-weight: 600;
+             color: #ecf0f1;
+             z-index: 1;
+        }
+
+        /* 7. Description Text Styling */
+        .description {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #bdc3c7; /* Lighter grey for description */
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 8. Keyframe Animations */
+        @keyframes shine {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        @keyframes tick-tock {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML Structure for the Page -->
+    <div class="page-container">
+        <h1 class="main-title">Our New PRODUCT Is</h1>
+
+        <div class="coming-soon-label">
+            <!-- Icon from Font Awesome -->
+            <i class="fa-regular fa-clock icon"></i>
+            <!-- Text container that JavaScript will target -->
+            <span class="text" id="countdown-text">Coming Soon...</span>
+        </div>
+
+        <p class="description">
+            We are working hard behind the scenes to bring you something amazing. Please check back soon!
+        </p>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT FOR THE COUNTDOWN TIMER ---
+
+        // --- 1. CONFIGURATION ---
+        // Set the target date and time for the launch.
+        const launchDate = new Date('Aug 15, 2025 12:00:00').getTime();
+
+        // --- 2. COUNTDOWN LOGIC ---
+        const countdownElement = document.getElementById('countdown-text');
+
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = "Launched! �";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+        }, 1000);
+    </script>
+
+</body>
+</html>
