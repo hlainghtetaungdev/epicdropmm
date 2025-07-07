@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Premium</title>
+    <link rel="icon" href="../logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #6e8efb, #a777e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-header-canva { background: linear-gradient(135deg, #2b4eff, #00c6ff); }
+        .card-header-chatgpt { background: linear-gradient(135deg, #10a37f, #1a7f64); }
+        .card-header-capcut { background: linear-gradient(135deg, #ff4d4d, #f9cb28); }
+        .card-header-telegram { background: linear-gradient(135deg, #0088cc, #34b7f1); }
+        .card-header-spotify { background: linear-gradient(135deg, #1DB954, #1ED760); }
+        .card-header-netflix { background: linear-gradient(135deg, #e50914, #b20710); } /* Netflix Style */
+        
+        .modal {
+            backdrop-filter: blur(5px);
+        }
+
+        .toast {
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+
+        @keyframes fadeIn {
+            from { bottom: -50px; opacity: 0; }
+            to { bottom: 20px; opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { bottom: 20px; opacity: 1; }
+            to { bottom: -50px; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Pro Membership Benefits</h1>
+            <p class="text-gray-400 text-lg mb-6">Unlock premium features from your favorite apps.</p>
+            <a href="vpn.html" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">Looking for VPN Services? &rarr;</a>
+        </header>
+
+        <!-- Pricing Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Canva Pro Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-canva text-center">
+                    <img src="../images/canva.png" alt="Canva Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">Canva Pro</h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> 100+ million premium stock assets</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> 610,000+ free templates</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Background remover & animations</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Brand Kit & Magic Resize</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="Canva Pro">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- ChatGPT Plus Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-chatgpt text-center">
+                    <img src="../images/chatgpt.png" alt="ChatGPT Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">ChatGPT Plus</h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> General access during peak times</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Faster response times</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Priority access to new features</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Access to GPT-4 and GPTs</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="ChatGPT Plus">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- CapCut Pro Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-capcut text-center">
+                    <img src="../images/capcut.png" alt="CapCut Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">CapCut Pro</h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> All premium effects & filters</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> No watermark on exports</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Premium music library</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Advanced editing tools</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="CapCut Pro">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Telegram Premium Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-telegram text-center">
+                    <img src="../images/telegram.webp" alt="Telegram Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">Telegram Premium</h2>
+                </div>
+                <div class="p-6">
+                     <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Increased limits & faster downloads</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Exclusive stickers & reactions</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Voice-to-text conversion</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Premium badges & animated profiles</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="Telegram Premium">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Spotify Premium Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-spotify text-center">
+                    <img src="../images/spotify.png" alt="Spotify Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">Spotify Premium</h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Ad-free music listening</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Download for offline listening</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Unlimited skips & high-quality audio</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> On-demand playback</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="Spotify Premium">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Netflix Premium Card -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="p-6 card-header-netflix text-center">
+                    <img src="../images/netflix.png" alt="Netflix Logo" class="w-20 h-20 mx-auto rounded-full border-4 border-white shadow-md">
+                    <h2 class="text-2xl font-bold mt-4">Netflix Premium</h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Watch on 4 devices at a time</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Ultra HD (4K) quality available</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Ad-free movies and TV shows</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">&#10003;</span> Download on 6 supported devices</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-gray-800">
+                    <button class="buy-btn w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-product="Netflix Premium">Buy Now</button>
+                </div>
+            </div>
+
+        </div> <!-- End Grid -->
+    </div> <!-- End Main Container -->
+
+    <!-- Modals -->
+    <!-- Canva Pro Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="canvaproModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Canva Pro - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="duration-options space-y-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="1 Year" data-price="MMK 50000">
+                        <div class="font-bold text-lg">1 Year</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 50,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ChatGPT Plus Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="chatgptplusModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">ChatGPT Plus - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="duration-options grid sm:grid-cols-2 gap-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="1 Month Share" data-price="MMK 25000">
+                        <div class="font-bold text-lg">1 Month (Shared)</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 25,000</div>
+                    </div>
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="1 Month Own" data-price="MMK 100000">
+                        <div class="font-bold text-lg">1 Month (Own Mail)</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 100,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CapCut Pro Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="capcutproModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">CapCut Pro - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="duration-options space-y-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="3 Months" data-price="MMK 30000">
+                        <div class="font-bold text-lg">3 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 30,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telegram Premium Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="telegrampremiumModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Telegram Premium - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="duration-options grid sm:grid-cols-3 gap-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="3 Months" data-price="MMK 75000">
+                        <div class="font-bold text-lg">3 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 75,000</div>
+                    </div>
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="6 Months" data-price="MMK 95000">
+                        <div class="font-bold text-lg">6 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 95,000</div>
+                    </div>
+                     <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="12 Months" data-price="MMK 170000">
+                        <div class="font-bold text-lg">12 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 170,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Spotify Premium Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="spotifypremiumModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Spotify Premium - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            
+            <div class="p-6">
+                <div class="duration-options space-y-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="3 Months" data-price="MMK 32000">
+                        <div class="font-bold text-lg">3 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 32,000</div>
+                    </div>
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="6 Months" data-price="MMK 60000">
+                        <div class="font-bold text-lg">6 Months</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 60,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Netflix Premium Modal -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4" id="netflixpremiumModal">
+        <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-auto">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Netflix Premium - Select Your Plan</h3>
+                <button class="close-btn text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="duration-options grid sm:grid-cols-2 gap-4">
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="1 Month (Shared)" data-price="MMK 20000">
+                        <div class="font-bold text-lg">1 Month (1 Profile)</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 20,000</div>
+                    </div>
+                    <div class="duration-option border-2 border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors" data-duration="1 Month (Own Mail)" data-price="MMK 70000">
+                        <div class="font-bold text-lg">1 Month (Whole Account)</div>
+                        <div class="text-green-400 font-semibold text-xl">MMK 60,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-900/50 rounded-b-lg">
+                <button class="modal-buy-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Buy This</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast hidden fixed bottom-5 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-lg">
+        Purchase info copied to clipboard!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buyButtons = document.querySelectorAll('.buy-btn');
+            const modals = document.querySelectorAll('.modal');
+            const closeBtns = document.querySelectorAll('.close-btn');
+            const toast = document.getElementById('toast-notification');
+
+            // --- Show Toast Notification ---
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            }
+
+            // --- Open Modal ---
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    // Sanitize product name to create a valid ID
+                    const modalId = product.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '') + 'Modal';
+                    const modal = document.getElementById(modalId);
+                    
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    }
+                });
+            });
+
+            // --- Close Modal ---
+            function closeModal(modal) {
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            }
+
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    closeModal(this.closest('.modal'));
+                });
+            });
+
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(event) {
+                    // Close modal if backdrop is clicked
+                    if (event.target === this) {
+                        closeModal(this);
+                    }
+                });
+            });
+
+            // --- Handle Plan Selection ---
+            document.querySelectorAll('.duration-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const parentOptions = this.closest('.duration-options');
+                    // Deselect other options in the same modal
+                    parentOptions.querySelectorAll('.duration-option').forEach(opt => {
+                        opt.classList.remove('border-green-500', 'bg-gray-700');
+                        opt.classList.add('border-gray-600');
+                    });
+                    // Select the clicked option
+                    this.classList.add('border-green-500', 'bg-gray-700');
+                    this.classList.remove('border-gray-600');
+                });
+            });
+
+            // --- Final Buy Button Logic ---
+            document.querySelectorAll('.modal-buy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    const selectedOption = modal.querySelector('.duration-option.border-green-500');
+
+                    if (!selectedOption) {
+                        // Show error toast if no plan is selected
+                        toast.classList.replace('bg-green-500', 'bg-red-500');
+                        showToast('Please select a plan first!');
+                        setTimeout(() => toast.classList.replace('bg-red-500', 'bg-green-500'), 3000);
+                        return;
+                    }
+
+                    const duration = selectedOption.dataset.duration;
+                    const price = selectedOption.dataset.price;
+                    const product = modal.querySelector('h3').textContent.split(' - ')[0];
+                    const purchaseInfo = `Product: ${product}\nPlan: ${duration}\nPrice: ${price}`;
+                    
+                    // Use the Clipboard API to copy purchase info
+                    // A temporary textarea is used for wider browser compatibility with document.execCommand
+                    const textArea = document.createElement("textarea");
+                    textArea.value = purchaseInfo;
+                    textArea.style.position = "fixed"; // Avoid scrolling to bottom
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast('Purchase info copied to clipboard!');
+                        closeModal(modal);
+                    } catch (err) {
+                        console.error('Fallback: Oops, unable to copy', err);
+                        showToast('Could not copy text.');
+                    }
+                    document.body.removeChild(textArea);
+                });
+            });
+
+            // Fallback for image errors
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    this.src = '../images/fallback.png'; // A default fallback image
+                });
+            });
+        });
+    </script>
+</body>
+</html>
